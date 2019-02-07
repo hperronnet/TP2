@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TP2-GIT", "TP2-GIT\TP2-GIT.vcxproj", "{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Debug|x64.ActiveCfg = Debug|x64
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Debug|x64.Build.0 = Debug|x64
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Debug|x86.ActiveCfg = Debug|Win32
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Debug|x86.Build.0 = Debug|Win32
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Release|x64.ActiveCfg = Release|x64
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Release|x64.Build.0 = Release|x64
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Release|x86.ActiveCfg = Release|Win32
+		{46619941-E7F1-4C3E-AC71-1F09D2B1D43E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C683F7C-7202-482A-A84D-E99E049054D7}
+	EndGlobalSection
+EndGlobal
