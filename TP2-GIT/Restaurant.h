@@ -14,7 +14,8 @@ class Restaurant {
 public:
 	//constructeurs
 	Restaurant();
-	Restaurant(const string& fichier, const string& nom,  TypeMenu moment);
+	Restaurant(const string& fichier, const string& nom, TypeMenu moment);
+	Restaurant(const Restaurant& RestaurantCopie);
 
 	//destructeur
 	~Restaurant();
@@ -28,12 +29,16 @@ public:
 
 	//Autres methodes
 	void lireTable(const string& fichier);
-	void ajouterTable(int id, int nbPlaces); // A MODIFIER
+	void operator+=(Table* table); // A MODIFIER
 	void libererTable(int id);
-	void afficher() const ; // A MODIFIER
-	void commanderPlat(const string& nom, int idTable); 
-
+	friend void operator << (ostream & o, Restaurant const& restaurant); // A MODIFIER
+	void commanderPlat(const string& nom, int idTable);
 	void placerClients(int nbClients);
+	//Nouvelles methodes
+	Restaurant* operator=(Restaurant& RestaurantCopie);
+	friend bool operator<(Restaurant& restaurant, Restaurant const& restaurantCompare);
+
+
 
 private:
 	string* nom_;

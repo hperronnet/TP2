@@ -43,6 +43,17 @@ void Plat::setPrix(double prix) {
 
 //methodes en plus
 
-void Plat::afficher() const {
-	cout << nom_ << " - " << prix_ << " $ (" << cout_ << "$ pour le restaurant)" << endl;
+ostream & operator<<(ostream& o, const Plat& cePlat) {
+	return o << cePlat.getNom() << " - " << cePlat.getPrix() << " $ (" << cePlat.getCout() << "$ pour le restaurant)" << endl;
 }
+
+bool operator<(Plat const& unPlat, Plat const& unAutrePlat)
+{
+	if (unPlat.getPrix() < unAutrePlat.getPrix()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+

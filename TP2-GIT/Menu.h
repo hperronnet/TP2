@@ -1,45 +1,61 @@
 /*
-* Titre : Menu.h - Travail Pratique #2
+* Titre : Restaurant.h - Travail Pratique #2
 * Date : 18 Janvier 2019
 * Auteur : Allan BEDDOUK
 */
 
-#ifndef MENU_H
-#define MENU_H
+#ifndef RESTAURANT_H
+#define RESTAURANT_H
 
-#include "Plat.h"
-#include <fstream>
-
-enum TypeMenu{Matin, Midi, Soir};
-const int MAXPLAT = 5;
-class Menu {
+#include "Table.h"
+#include "Menu.h"
+const int INTTABLES = 6;
+class Restaurant {
 public:
-	// constructeurs
-	Menu();
-	Menu(string fichier, TypeMenu type);
+	//constructeurs
+	Restaurant();
+	Restaurant(const string& fichier, const string& nom, TypeMenu moment);
+	Restaurant(Restaurant const& restaurantCopie);
 
 	//destructeur
-	~Menu();
+	~Restaurant();
+
+	//setters
+	void setMoment(TypeMenu moment);
 
 	//getters
-	int getNbPlats() const;
+	string getNom() const;
+	TypeMenu getMoment() const;
 
-	//affichage
-	void afficher() const; //A MODIFIER
+	//Autres methodes
+	void lireTable(const string& fichier);
+	void operator+=(Table* table); // A MODIFIER
+	void libererTable(int id);
+	friend void opperator << (/*Mettre des trus*/) const; // A MODIFIER
+	void commanderPlat(const string& nom, int idTable);
+	void placerClients(int nbClients);
+	//Nouvelles methodes
+	Restaurant* operator=(Restaurant RestaurantCopie);
+	friend bool operator<(Restaurant Restaurant, Restaurant RestaurantCompare);
 
-	//methodes en plus
-	Plat* trouverPlat(const string& nom) const; // A MODIFIER
-	Plat * trouverPlatMoinsCher() const; // Utilise les vecteurs (NE PAS MODIFIER)
-	void ajouterPlat(const Plat & plat); // A MODIFIER
-	bool lireMenu(const string& fichier);
 
-private :
+
+private:
+	string* nom_;
+
+	double chiffreAffaire_;
+	TypeMenu momentJournee_;
+
+	//differents menus en fonction du moment de la journee
+	Menu* menuMatin_;
+	Menu* menuMidi_;
+	Menu* menuSoir_;
+
 	// A MODIFIER
-	int capacite_;
-	Plat** listePlats_;
-	int nbPlats_;
-	TypeMenu type_;
 
+	//liste des tables
+	int capaciteTables_;
+	Table** tables_;
+	int nbTables_;
 };
-
-#endif // !MENU_H
+#endif // !RESTAURANT_H

@@ -91,8 +91,8 @@ void Restaurant::afficher() const {
 	cout << "-Voici les tables : " << endl;
 	for (int i = 0; i < nbTables_; i++) {
 		cout << "\t";
-		tables_[i]->afficher();
-		cout << endl;
+		cout << tables_[i];
+
 	}
 	cout << endl;
 

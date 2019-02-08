@@ -9,7 +9,7 @@
 //constructeurs
 Table::Table() {
 	capacite_ = MAXCAP;
-	commande_ = new Plat*[MAXCAP];
+	vector<Plat*> commande_;
 	nbPlats_ = 0;
 	id_ = -1;
 	nbPlaces_ = 1;
@@ -18,7 +18,7 @@ Table::Table() {
 
 Table::Table(int id, int nbPlaces) {
 	capacite_ = MAXCAP;
-	commande_ = new Plat*[capacite_];
+	vector<Plat*> commande_;
 	nbPlats_ = 0;
 	id_ = id;
 	nbPlaces_ = nbPlaces;
@@ -28,7 +28,8 @@ Table::Table(int id, int nbPlaces) {
 //destructeur
 Table::~Table() {
 	//A MODIFIER
-	delete[] commande_;
+	//Probablement supprimer chaque plat de la commande
+	commande_.clear();
 }
 
 //getters
@@ -63,9 +64,7 @@ void Table::libererTable() {
 	nbPlaces_ += nbClientsATable_;
 	nbClientsATable_ = 0;
 	//A MODIFIER
-	for (int i = 0; i < nbPlats_; i++) {
-		commande_[i] = nullptr;
-	}
+	commande_.clear();
 	nbPlats_ = 0;
 }
 
@@ -84,8 +83,11 @@ void Table::commander(Plat* plat) {
 			temp[i] = commande_[i];
 		}
 
-		delete[] commande_;
-		commande_ = temp;
+		commande_.clear();
+		for (int i = 0; i < nbPlats_; i++) {
+			commande_.push_back(temp[i]);
+		}
+		
 	}
 
 	commande_[nbPlats_] = plat;
@@ -101,21 +103,26 @@ double Table::getChiffreAffaire() const {
 }
 
 //affichage
-void Table::afficher() const {
-	cout << "La table numero " << id_;
-	if (estOccupee()) {
-		cout << " est occupee. ";
-		if (nbPlats_ != 0) {
-			cout << "Voici la commande passee par les clients : " << endl;
-			for (int i = 0; i < nbPlats_; i++) {
-				cout << "\t";
-				commande_[i]->afficher();
-			}
-		}
-		else
-			cout << "Mais ils n'ont rien conmmande pour l'instant. " << endl;
+
+ostream & operator<<(ostream& o, Table const& table)
+{
+	o << "La table numero" << table.id_;
+	if (table.estPleine()) {
+
+		o << "est occupée.";
 	}
 	else {
-		cout << " est libre. " << endl;
+		o << "est libre.";
 	}
+
+	if (table.nbPlats_ != 0) {
+		o << "Elle a commande : " << endl;
+		for (int i = 0; i < table.nbPlats_; i++) {
+			o << table.commande_[i] << endl;
+		}
+	}
+	else {
+		o << "Mais les clients n'ont rien commandé pour l'instant.";
+	}
+	return o;
 }
