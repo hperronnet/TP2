@@ -39,7 +39,8 @@ int main() {
 
 	//Creation d'une copie du poly restaurant 
 	Restaurant poly2(poly);
-	poly2.setNom("PolyFood2");
+	string nom = "PolyFood";
+	poly2.setNom(&nom);
 
 	//Affichage du restaurant poly 
 	cout << poly;

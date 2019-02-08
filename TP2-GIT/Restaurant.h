@@ -9,19 +9,21 @@
 
 #include "Table.h"
 #include "Menu.h"
+#include <vector>
 const int INTTABLES = 6;
 class Restaurant {
 public:
 	//constructeurs
 	Restaurant();
 	Restaurant(const string& fichier, const string& nom, TypeMenu moment);
-	Restaurant(const Restaurant& RestaurantCopie);
+	Restaurant(const Restaurant& restaurantCopie);
 
 	//destructeur
 	~Restaurant();
 
 	//setters
 	void setMoment(TypeMenu moment);
+	void setNom(string *nom);
 
 	//getters
 	string getNom() const;
@@ -29,14 +31,14 @@ public:
 
 	//Autres methodes
 	void lireTable(const string& fichier);
-	void operator+=(Table* table); // A MODIFIER
+	Restaurant& operator+=(Table& table); // A MODIFIER
 	void libererTable(int id);
-	friend void operator << (ostream & o, Restaurant const& restaurant); // A MODIFIER
+	friend ostream& operator<<(ostream& o, Restaurant const& ceRestaurant);
 	void commanderPlat(const string& nom, int idTable);
 	void placerClients(int nbClients);
 	//Nouvelles methodes
-	Restaurant* operator=(Restaurant& RestaurantCopie);
-	friend bool operator<(Restaurant& restaurant, Restaurant const& restaurantCompare);
+	Restaurant * operator=(Restaurant restaurantCopie);
+	friend bool operator<(Restaurant restaurant, Restaurant restaurantCompare);
 
 
 
@@ -54,8 +56,6 @@ private:
 	// A MODIFIER
 
 	//liste des tables
-	int capaciteTables_;
-	Table** tables_;
-	int nbTables_;
+	vector<Table*> tables_;
 };
 #endif // !RESTAURANT_H

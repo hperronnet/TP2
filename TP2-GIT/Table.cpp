@@ -48,6 +48,8 @@ int Table::getnbClientATable() const
 
 bool Table::estPleine() const {
 	return nbPlaces_==0;
+	//ou
+	// nbClientsATable != ;
 }
 
 bool Table::estOccupee() const

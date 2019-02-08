@@ -1,61 +1,40 @@
 /*
-* Titre : Restaurant.h - Travail Pratique #2
+* Titre : Menu.h - Travail Pratique #2
 * Date : 18 Janvier 2019
 * Auteur : Allan BEDDOUK
 */
 
-#ifndef RESTAURANT_H
-#define RESTAURANT_H
+#ifndef MENU_H
+#define MENU_H
 
-#include "Table.h"
-#include "Menu.h"
-const int INTTABLES = 6;
-class Restaurant {
+#include "Plat.h"
+#include <fstream>
+
+enum TypeMenu { Matin, Midi, Soir };
+const int MAXPLAT = 5;
+class Menu {
 public:
-	//constructeurs
-	Restaurant();
-	Restaurant(const string& fichier, const string& nom, TypeMenu moment);
-	Restaurant(Restaurant const& restaurantCopie);
+	// constructeurs
+	Menu();
+	Menu(string fichier, TypeMenu type);
+	Menu(Menu& menuCopie);
 
 	//destructeur
-	~Restaurant();
+	~Menu();
 
-	//setters
-	void setMoment(TypeMenu moment);
-
-	//getters
-	string getNom() const;
-	TypeMenu getMoment() const;
-
-	//Autres methodes
-	void lireTable(const string& fichier);
-	void operator+=(Table* table); // A MODIFIER
-	void libererTable(int id);
-	friend void opperator << (/*Mettre des trus*/) const; // A MODIFIER
-	void commanderPlat(const string& nom, int idTable);
-	void placerClients(int nbClients);
-	//Nouvelles methodes
-	Restaurant* operator=(Restaurant RestaurantCopie);
-	friend bool operator<(Restaurant Restaurant, Restaurant RestaurantCompare);
-
-
+	//methodes en plus
+	Plat* trouverPlat(const string& nom) const; // A MODIFIER
+	Plat * trouverPlatMoinsCher() const; // Utilise les vecteurs (NE PAS MODIFIER)
+	Menu& operator+=(const Plat & plat); // A MODIFIER
+	bool lireMenu(const string& fichier);
+	Menu& operator=(const Menu menuCopie);
+	friend ostream& operator<<(ostream& o, Menu const& ceMenu);
 
 private:
-	string* nom_;
-
-	double chiffreAffaire_;
-	TypeMenu momentJournee_;
-
-	//differents menus en fonction du moment de la journee
-	Menu* menuMatin_;
-	Menu* menuMidi_;
-	Menu* menuSoir_;
-
 	// A MODIFIER
+	vector<Plat*> listePlats_;
+	TypeMenu type_;
 
-	//liste des tables
-	int capaciteTables_;
-	Table** tables_;
-	int nbTables_;
 };
-#endif // !RESTAURANT_H
+
+#endif // !MENU_H
