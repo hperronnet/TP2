@@ -13,10 +13,10 @@ Plat::Plat() {
 	cout_ = 0;
 }
 
-Plat::Plat(string nom, double prix, double cout) {
+Plat::Plat(string nom, double prix, double leCout) {
 	nom_ = nom;
 	prix_ = prix;
-	cout_ = cout;
+	cout_ = leCout;
 }
 //getters
 
@@ -44,7 +44,7 @@ void Plat::setPrix(double prix) {
 //methodes en plus
 
 ostream & operator<<(ostream& o, const Plat& cePlat) {
-	return o << cePlat.getNom() << " - " << cePlat.getPrix() << " $ (" << cePlat.getCout() << "$ pour le restaurant)" << endl;
+	return o << "\t" << cePlat.getNom() << " - " << cePlat.getPrix() << " $ (" << cePlat.getCout() << "$ pour le restaurant)";
 }
 
 bool operator<(Plat const& unPlat, Plat const& unAutrePlat)

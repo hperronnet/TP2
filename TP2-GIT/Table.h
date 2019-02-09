@@ -9,6 +9,7 @@
 
 #include "Plat.h"
 #include <vector>
+
 const  int MAXCAP = 5;
 class Table {
 public:
@@ -38,11 +39,9 @@ public:
 	///affichage	
 	friend ostream& operator<<(ostream& o, Table const& table);
 
-private :
+private:
 	//A MODIFIER
-	int capacite_;
 	vector<Plat*> commande_;
-	int nbPlats_;
 	int id_;
 	int nbPlaces_;
 	int nbClientsATable_;

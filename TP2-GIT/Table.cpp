@@ -8,18 +8,14 @@
 
 //constructeurs
 Table::Table() {
-	capacite_ = MAXCAP;
-	vector<Plat*> commande_;
-	nbPlats_ = 0;
+	//vector<Plat*> commande_;
 	id_ = -1;
 	nbPlaces_ = 1;
 	nbClientsATable_ = 0;
 }
 
 Table::Table(int id, int nbPlaces) {
-	capacite_ = MAXCAP;
-	vector<Plat*> commande_;
-	nbPlats_ = 0;
+	//vector<Plat*> commande_;
 	id_ = id;
 	nbPlaces_ = nbPlaces;
 	nbClientsATable_ = 0;
@@ -29,6 +25,8 @@ Table::Table(int id, int nbPlaces) {
 Table::~Table() {
 	//A MODIFIER
 	//Probablement supprimer chaque plat de la commande
+	for (unsigned i = 0; i < commande_.size(); i++)
+		commande_[i] = nullptr;
 	commande_.clear();
 }
 
@@ -48,8 +46,6 @@ int Table::getnbClientATable() const
 
 bool Table::estPleine() const {
 	return nbPlaces_==0;
-	//ou
-	// nbClientsATable != ;
 }
 
 bool Table::estOccupee() const
@@ -67,7 +63,6 @@ void Table::libererTable() {
 	nbClientsATable_ = 0;
 	//A MODIFIER
 	commande_.clear();
-	nbPlats_ = 0;
 }
 
 void Table::placerClient(int nbClients) {
@@ -78,53 +73,38 @@ void Table::placerClient(int nbClients) {
 //autres methodes
 void Table::commander(Plat* plat) {
 	// A MODIFIER
-	if (nbPlats_ == capacite_) {
-		capacite_ *= 2;
-		Plat** temp = new Plat*[capacite_];
-		for (int i = 0; i < nbPlats_; i++) {
-			temp[i] = commande_[i];
-		}
-
-		commande_.clear();
-		for (int i = 0; i < nbPlats_; i++) {
-			commande_.push_back(temp[i]);
-		}
-		
-	}
-
-	commande_[nbPlats_] = plat;
-	nbPlats_++;
+	commande_.push_back(plat);
 }
 
 double Table::getChiffreAffaire() const {
 	double chiffre = 0;
-	for (int i = 0; i < nbPlats_; i++) {
+	for (unsigned i = 0; i < commande_.size(); i++) {
 		chiffre += (commande_[i]->getPrix() - commande_[i]->getCout());
 	}
 	return chiffre;
 }
 
 //affichage
-
 ostream & operator<<(ostream& o, Table const& table)
 {
-	o << "La table numero" << table.id_;
-	if (table.estPleine()) {
+	o << "La table numero " << table.id_;
+	if (table.estOccupee()) {
 
-		o << "est occupée.";
-	}
-	else {
-		o << "est libre.";
-	}
-
-	if (table.nbPlats_ != 0) {
-		o << "Elle a commande : " << endl;
-		for (int i = 0; i < table.nbPlats_; i++) {
-			o << table.commande_[i] << endl;
+		o << " est occupee.";
+		if (table.commande_.size() != 0) {
+			o << " Elle a commande : " << endl;
+			for (int i = 0; i < table.commande_.size(); i++) {
+				o << *table.commande_[i] << endl;
+			}
+		}
+		else {
+			o << " Mais les clients n'ont rien commande pour l'instant." << endl;
 		}
 	}
 	else {
-		o << "Mais les clients n'ont rien commandé pour l'instant.";
+		o << " est libre.";
 	}
+
+
 	return o;
 }

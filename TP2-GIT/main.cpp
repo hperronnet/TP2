@@ -36,10 +36,9 @@ int main() {
 	poly.commanderPlat("Muffin", 4); 
 	poly.commanderPlat("Oeuf", 4); 
 
-
 	//Creation d'une copie du poly restaurant 
 	Restaurant poly2(poly);
-	string nom = "PolyFood";
+	string nom = "PolyFood2";
 	poly2.setNom(&nom);
 
 	//Affichage du restaurant poly 
@@ -68,4 +67,5 @@ int main() {
 	// Le restaurant Poly2 doit maintenant avoir toutes ses tables libérées
 	cout << poly2;
 
+	system("pause");
 }

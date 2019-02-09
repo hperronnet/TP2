@@ -18,7 +18,7 @@ Menu::Menu(Menu& menuCopie)
 {
 	type_ = menuCopie.type_;
 
-	for (int i = 0; i < menuCopie.listePlats_.size(); i++)
+	for (unsigned i = 0; i < menuCopie.listePlats_.size(); i++)
 	{
 		listePlats_.push_back(new Plat(*menuCopie.listePlats_[i]));
 	}
@@ -34,7 +34,7 @@ Menu::Menu(string fichier, TypeMenu type) {
 
 //destructeur
 Menu::~Menu() {
-	for (int i = 0; listePlats_.size(); i++)
+	for (int i = 0; i < listePlats_.size(); i++)
 		delete listePlats_[i];
 	listePlats_.clear();
 }
@@ -69,7 +69,7 @@ bool Menu::lireMenu(const string& fichier) {
 		double prix;
 
 		string coutString;
-		int cout;
+		int leCout;
 
 
 		// lecture
@@ -79,7 +79,7 @@ bool Menu::lireMenu(const string& fichier) {
 			if (ligne == type) {
 				//commencer a lire -- s'arrete si fin du fichier ou encore si on arrive a une nouvelle section du menu
 				getline(file, ligne);
-				int curseur;
+				int curseur = 0;
 				while (ligne[0] != '-' && !file.eof()) {
 					//trouver le nom
 					for (int i = 0; i < int(ligne.size()); i++) {
@@ -108,9 +108,9 @@ bool Menu::lireMenu(const string& fichier) {
 						coutString += ligne[i];
 					}
 
-					cout = int(stof(coutString.c_str()));
+					leCout = int(stof(coutString.c_str()));
 
-					Plat newPlat(nom, prix, cout);
+					Plat newPlat(nom, prix, leCout);
 					*this += newPlat;
 					nom = "";
 					prixString = "";
@@ -132,10 +132,11 @@ Menu & Menu::operator=(const Menu menuCopie)
 
 	listePlats_.clear();
 
-	for (int i = 0; i < menuCopie.listePlats_.size(); i++)
+	for (unsigned i = 0; i < menuCopie.listePlats_.size(); i++)
 	{
 		listePlats_.push_back(new Plat(*menuCopie.listePlats_[i]));
 	}
+	return *this;
 }
 
 Plat * Menu::trouverPlatMoinsCher() const
@@ -164,7 +165,7 @@ Menu& Menu::operator+=(const Plat & plat)
 
 Plat* Menu::trouverPlat(const string& nom) const {
 
-	for (int i = 0; i < listePlats_.size(); i++) {
+	for (unsigned i = 0; i < listePlats_.size(); i++) {
 		if (listePlats_[i]->getNom() == nom)
 			return listePlats_[i];
 	}
@@ -173,7 +174,7 @@ Plat* Menu::trouverPlat(const string& nom) const {
 
 ostream & operator<<(ostream & o, Menu const & ceMenu)
 {
-	for (int i = ; i < ceMenu.listePlats_; i++) {
+	for (unsigned i = 0; i < ceMenu.listePlats_.size(); i++) {
 		o << "   " << *ceMenu.listePlats_[i] << "\n";
 	}
 	o << "\n";

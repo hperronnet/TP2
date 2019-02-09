@@ -37,7 +37,7 @@ public:
 	void commanderPlat(const string& nom, int idTable);
 	void placerClients(int nbClients);
 	//Nouvelles methodes
-	Restaurant * operator=(Restaurant restaurantCopie);
+	Restaurant& operator=(const Restaurant& restaurantCopie);
 	friend bool operator<(Restaurant restaurant, Restaurant restaurantCompare);
 
 
